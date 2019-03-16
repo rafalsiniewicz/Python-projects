@@ -12,4 +12,5 @@ Game:
 
 End of a game:
 
-![image](https://user-images.githubusercontent.com/36672426/54478822-b7b3b900-4816-11e9-93a7-431dc92da5d6.png)
+![image](https://user-images.githubusercontent.com/36672426/54478886-87b8e580-4817-11e9-9814-3c970cf94fdd.png)
+
