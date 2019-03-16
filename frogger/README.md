@@ -4,3 +4,12 @@ Main menu:
 
 ![image](https://user-images.githubusercontent.com/36672426/54478799-69061f00-4816-11e9-9159-d86c27c1d3c5.png)
 
+Game:
+
+
+![image](https://user-images.githubusercontent.com/36672426/54478818-a23e8f00-4816-11e9-834b-4785178d01ce.png)
+
+
+End of a game:
+
+![image](https://user-images.githubusercontent.com/36672426/54478822-b7b3b900-4816-11e9-93a7-431dc92da5d6.png)
