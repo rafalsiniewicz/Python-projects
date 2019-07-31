@@ -13,6 +13,8 @@ class Individual:
 		self.length+=route.GetLength()
 	def Get(self):
 		return self.individual
+	def Getn(self,n):
+		return self.individual[n]
 	def GetLength(self):
 		return self.length
 	def GetSize(self):
@@ -31,22 +33,32 @@ class Individual:
 			numbers.append(i)
 		for i in range(0,n):
 			route = Route()
+			#route.AddPlace("START",START.get("START"))
 			if(len(numbers))>=(2*len(data.Get())//n):
 				for j in range(0,len(data.Get())//n):
 					if(len(numbers) != 0):
 						random=sample(numbers,k=1)
 						route.AddPlace(data.GetName(random[0]),data.GetValue(random[0]))
 						numbers.remove(random[0])
+				#route.AddPlace("START",START.get("START"))
 			else:
 				for j in range(0,ceil(len(data.Get())/n)):
 					if(len(numbers) != 0):
 						random=sample(numbers,k=1)
 						route.AddPlace(data.GetName(random[0]),data.GetValue(random[0]))
 						numbers.remove(random[0])
+				#route.AddPlace("START",START.get("START"))
 			#Routes.append(route.Get())
 			self.AddRoute(route)
 		#print(route.Get())
 		#return Routes
+
+	def Merge(self):
+		merged = OrderedDict()
+		for i in self.individual:
+			merged.update(i.Get())
+
+		return merged
 
 	def Check_if_correct(self):
 		for i in self.individual:

@@ -72,23 +72,34 @@ pop = Population()
 
 for i in range(0,100):
 	ind=Individual()
-	ind.CreateIndividual(data,4)
+	ind.CreateIndividual(data,3)
 	pop.AddIndividual(ind)
+
+#pop.Show()
+#pop.AddStart(START,END)
+#pop.Show()
+
+#pop.Getn(0).Show()
+#print(pop.Getn(0).Merge())
+
 
 pop.SortPopulation()
 for i in range(0,100):
-	print(pop.Get(i).GetLength())
+	print(pop.Getn(i).GetLength())
 print()
 for j in range(0,40):
 	for i in range(0,30):
-		pop.AddIndividual(pop.Crossing())
+		pop.AddIndividual(pop.CrossingMerged())
 
 	pop.SortPopulation()
 	pop.LeavenBest(100)
 #pop.SortPopulation()
 
 for i in range(0,100):
-	print(pop.Get(i).GetLength())
+	print(pop.Getn(i).GetLength())
+
+pop.Show()
+
 
 
 
