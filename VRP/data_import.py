@@ -82,11 +82,12 @@ for i in range(0,100):
 #pop.Getn(0).Show()
 #print(pop.Getn(0).Merge())
 
-
+pop.AddStart(START,END)
 pop.SortPopulation()
 for i in range(0,100):
 	print(pop.Getn(i).GetLength())
 print()
+pop.RemoveStart()
 for j in range(0,40):
 	for i in range(0,30):
 		pop.AddIndividual(pop.CrossingMerged())
@@ -95,10 +96,12 @@ for j in range(0,40):
 	pop.LeavenBest(100)
 #pop.SortPopulation()
 
+pop.AddStart(START,END)
+pop.SortPopulation()
 for i in range(0,100):
 	print(pop.Getn(i).GetLength())
 
-pop.Show()
+#pop.Show()
 
 
 

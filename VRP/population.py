@@ -33,6 +33,11 @@ class Population:
 				j.Get().move_to_end("START", last=False)
 				j.Get().update(end)
 
+	def RemoveStart(self):
+		for i in self.population:
+			for j in i.Get():
+				j.Get().popitem(last=False)
+				j.Get().popitem()
 
 	def Crossing(self):
 		child = Individual()
