@@ -89,7 +89,7 @@ class Population:
 				sum += i 
 			return sum
 		
-		for i in range(0,self.population[parent1].GetSize()-2):
+		for i in range(0,self.population[parent1].GetSize()-2):	# bo jedna dlugosc dodalismy wyzej i jedna dodamy nizej
 			if sum(child_routes_length) + self.population[parent1].Getn(i).GetSize() < len(self.population[parent1].Merge()):
 				child_routes_length.append(self.population[parent1].Getn(i).GetSize())
 			elif sum(child_routes_length) + self.population[parent2].Getn(i).GetSize() < len(self.population[parent1].Merge()):

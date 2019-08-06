@@ -54,7 +54,8 @@ for i in range(1,len(data)):
 
 data = dict(zip(place,zip(data_x,data_y)))
 print(data["A"])'''
-data = Data()
+
+'''data = Data()
 data.Import("data.json")
 data.Show()
 print("\n\n")
@@ -87,58 +88,23 @@ pop.SortPopulation()
 for i in range(0,100):
 	print(pop.Getn(i).GetLength())
 print()
-pop.RemoveStart()
-for j in range(0,40):
-	for i in range(0,30):
+#pop.RemoveStart()
+for j in range(0,50):
+	pop.RemoveStart()
+	for i in range(0,40):
 		pop.AddIndividual(pop.CrossingMerged())
 
+	pop.AddStart(START,END)
 	pop.SortPopulation()
 	pop.LeavenBest(100)
 #pop.SortPopulation()
 
-pop.AddStart(START,END)
+#pop.AddStart(START,END)
 pop.SortPopulation()
 for i in range(0,100):
 	print(pop.Getn(i).GetLength())
 
-#pop.Show()
+pop.BestIndividual().Show()
+#print(pop.BestIndividual().GetLength())'''
 
 
-
-
-#pop.Show()
-#print(pop.GetSize())
-#print(list(pop.Get(0)),end=' ')
-
-#print(pop.Get(0).Get()[0].Check_if_correct(8))
-#pop.Get(0).Check_if_correct(3)
-
-#print(pop.BestIndividual().GetLength())
-
-
-#pop.Crossing()
-
-#print(list(pop.Get(0)[0].values())[0][0])
-
-'''track1 = Route()
-print(track1.FindNearest(data.GetName(0),data.GetValue(0),data.Get()))'''
-
-'''track1=Route()
-track2 = Route()
-track3 = Route()
-for i in range(0,len(data.Get()),3):
-	track1.AddPlace(data.GetName(i),data.GetValue(i))
-	track2.AddPlace(data.GetName(i+1),data.GetValue(i+1))
-	track3.AddPlace(data.GetName(i+2),data.GetValue(i+2))
-
-
-individual=Individual()
-individual.AddRoute(track1)
-individual.AddRoute(track2)
-individual.AddRoute(track3)
-print(individual.Get())
-'''
-#print(track1.Get())
-#print(track1.GetLength())
-'''
-'''
