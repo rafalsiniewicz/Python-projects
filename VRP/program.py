@@ -6,7 +6,7 @@ class Program:
 	def __init__(self):
 		self.population = Population()
 		self.data = Data()
-		self.size = 100
+		self.size = 300
 
 	def ImportData(self, name = "data.json"):
 		self.data.Import(name)
@@ -15,15 +15,18 @@ class Program:
 		self.data.Show()
 		print()
 
-	def InitializePopulation(self, number_of_vehicles = 3):
+	def InitializePopulation(self, number_of_vehicles = 3, number_of_individuals_to_leave = 100):
 		for i in range(0,self.size):
 			ind=Individual()
 			ind.CreateIndividual(self.data,number_of_vehicles)
 			self.population.AddIndividual(ind)
+		self.population.SortPopulation()
+		self.population.LeavenBest(number_of_individuals_to_leave)
+		self.size = number_of_individuals_to_leave
 
 
 
-	def PlayRound(self, number_of_cycles = 50, number_of_crossings = 40):
+	def PlayRound(self, number_of_cycles = 50, number_of_crossings = 40, number_of_individuals_to_leave = 100):
 		self.population.AddStart(START,END)
 		self.population.SortPopulation()
 		for j in range(0,number_of_cycles):
@@ -33,7 +36,7 @@ class Program:
 
 			self.population.AddStart(START,END)
 			self.population.SortPopulation()
-			self.population.LeavenBest(100)
+			self.population.LeavenBest(number_of_individuals_to_leave)
 
 		self.population.SortPopulation()
 
