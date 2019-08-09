@@ -169,19 +169,6 @@ class Population:
 
 		self.population[parent] = mutated
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 	def SortPopulation(self):
 		def GetIndividualLength(individual):
 			return individual.GetLength()
