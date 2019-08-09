@@ -8,6 +8,15 @@ class Program:
 		self.data = Data()
 		self.size = 300
 
+	def GetPopulation(self):
+		return self.population
+
+	def GetData(self):
+		return self.data
+
+	def GetSize(self):
+		return self.size
+
 	def ImportData(self, name = "data.json"):
 		self.data.Import(name)
 
@@ -15,18 +24,17 @@ class Program:
 		self.data.Show()
 		print()
 
-	def InitializePopulation(self, number_of_vehicles = 3, number_of_individuals_to_leave = 100):
+	def InitializePopulation(self, number_of_vehicles = 3, number_of_individuals_to_stay = 100):
 		for i in range(0,self.size):
 			ind=Individual()
 			ind.CreateIndividual(self.data,number_of_vehicles)
 			self.population.AddIndividual(ind)
 		self.population.SortPopulation()
-		self.population.LeavenBest(number_of_individuals_to_leave)
-		self.size = number_of_individuals_to_leave
+		self.population.LeavenBest(number_of_individuals_to_stay)
+		self.size = number_of_individuals_to_stay
 
 
-
-	def PlayRound(self, number_of_cycles = 50, number_of_crossings = 40, number_of_individuals_to_leave = 100):
+	def PlayRound(self, number_of_cycles = 50, number_of_crossings = 40, number_of_individuals_to_stay = 100):
 		self.population.AddStart(START,END)
 		self.population.SortPopulation()
 		for j in range(0,number_of_cycles):
@@ -34,9 +42,10 @@ class Program:
 			for i in range(0,number_of_crossings):
 				self.population.AddIndividual(self.population.CrossingMerged())
 
+			self.population.Mutation()
 			self.population.AddStart(START,END)
 			self.population.SortPopulation()
-			self.population.LeavenBest(number_of_individuals_to_leave)
+			self.population.LeavenBest(number_of_individuals_to_stay)
 
 		self.population.SortPopulation()
 

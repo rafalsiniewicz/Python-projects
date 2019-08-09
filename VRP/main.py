@@ -5,11 +5,11 @@ program.ImportData()
 
 program.ShowData()
 
-program.InitializePopulation()
+program.InitializePopulation(3,100)
 
 program.ShowLengths()
 
-for i in range(0,1):
+for i in range(0,10):
 	program.PlayRound()
 
 program.ShowLengths()
