@@ -65,7 +65,7 @@ class Program:
 			for i in range(0,number_of_crossings):
 				self.population.AddIndividual(self.population.CrossingMerged())
 				pass
-			self.population.Mutation()
+			#self.population.Mutation()
 			self.population.AddStart(START,END)
 			self.population.SortPopulation()
 			self.population.LeavenBest(number_of_individuals_to_stay)

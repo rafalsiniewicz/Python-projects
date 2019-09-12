@@ -160,7 +160,7 @@ class Population:
 		else:
 			new_routes_length.append(randint(1,len(self.population[parent].Merge())//2))
 			for i in range(0,self.population[parent].GetSize()-2):
-				route_length = randint(1,len(self.population[parent].Merge()) - sum(new_routes_length))
+				route_length = randint(1,len(self.population[parent].Merge()) - sum(new_routes_length) - 1)
 				new_routes_length.append(route_length)
 
 			new_routes_length.append(len(self.population[parent].Merge())-sum(new_routes_length))
