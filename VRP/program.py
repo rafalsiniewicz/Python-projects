@@ -24,6 +24,23 @@ class Program:
 		self.data.Show()
 		print()
 
+	def GetNames(self):
+		names = []
+		for place, position in self.data.Get().items():
+			names.append(place)
+		return names
+
+	def SelectData(self, list_of_places):
+		new_dict = self.data.Get().copy()
+		for place, position in new_dict.items():
+			stay = False
+			for i in list_of_places:
+				if i == place:
+					stay = True
+			if stay == False:
+				del self.data.Get()[place]
+
+
 	def InitializePopulation(self, number_of_vehicles = 3, number_of_individuals_to_stay = 100):
 		for i in range(0,self.size):
 			ind=Individual()
@@ -40,8 +57,8 @@ class Program:
 		for j in range(0,number_of_cycles):
 			self.population.RemoveStart()
 			for i in range(0,number_of_crossings):
-				self.population.AddIndividual(self.population.CrossingMerged())
-
+				#self.population.AddIndividual(self.population.CrossingMerged())
+				pass
 			self.population.Mutation()
 			self.population.AddStart(START,END)
 			self.population.SortPopulation()

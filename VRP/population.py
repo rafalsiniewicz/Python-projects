@@ -1,4 +1,5 @@
 from individual import *
+import itertools
 
 class Population:
 	def __init__(self):
@@ -137,7 +138,7 @@ class Population:
 		return child
 
 
-	def Mutation(self):	# Mutated individual merged is reversed parent with different routes lengths
+	def Mutation(self):	# Mutated individual merged is reversed (permutated in new version) parent with different routes lengths
 		parent = randint(0,self.GetSize()-1)
 		mutated = Individual()
 		#print("parent ", parent)
@@ -149,18 +150,30 @@ class Population:
 			return sum
 
 		new_routes_length = []
-		new_routes_length.append(randint(1,len(self.population[parent].Merge())//2))
-		for i in range(0,self.population[parent].GetSize()-2):
-			route_length = randint(1,len(self.population[parent].Merge()) - sum(new_routes_length))
-			new_routes_length.append(route_length)
 
-		new_routes_length.append(len(self.population[parent].Merge())-sum(new_routes_length))
+		if self.population[parent].GetSize() == 1:
+			new_routes_length.append(len(self.population[parent].Merge()))
+		else:
+			new_routes_length.append(randint(1,len(self.population[parent].Merge())//2))
+			for i in range(0,self.population[parent].GetSize()-2):
+				route_length = randint(1,len(self.population[parent].Merge()) - sum(new_routes_length))
+				new_routes_length.append(route_length)
+
+			new_routes_length.append(len(self.population[parent].Merge())-sum(new_routes_length))
+
+		#print(self.population[parent].Merge())
+		items = list(self.population[parent].Merge().items())
+		shuffle(items)
+		self.population[parent].Merge().clear()
+		self.population[parent] = OrderedDict(items)
+		#print(self.population[parent])
+
 
 		for i in range(0,len(new_routes_length)):
 			route = Route()
 			for j in range(0,new_routes_length[i]):
 				#print(child_routes_length[i])
-				for place, position in OrderedDict(reversed(list(self.population[parent].Merge().items()))).items():
+				for place, position in self.population[parent].items():
 					#print(place,position)
 					if mutated.Check_place(place) == False and route.Check_place(place) == False:
 						route.AddPlace(place, position)
