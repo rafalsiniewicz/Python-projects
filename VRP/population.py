@@ -33,12 +33,16 @@ class Population:
 				j.Get().update(start)
 				j.Get().move_to_end("START", last=False)
 				j.Get().update(end)
+				i.AddLength(j)
+
 
 	def RemoveStart(self):
 		for i in self.population:
 			for j in i.Get():
-				j.Get().popitem(last=False)
-				j.Get().popitem()
+				if "START" in j.Get():
+					j.Get().popitem(last=False)
+					j.Get().popitem()
+			i.ResetLength()
 
 	def Crossing(self):		#crossing for individuals with the same amount of places in every route
 		child = Individual()

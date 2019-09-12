@@ -10,7 +10,8 @@ class Individual:
 	def AddRoute(self,route):
 		#self.individual.update(route.Get())
 		self.individual.append(route)
-		self.length+=route.GetLength()
+		#self.length+=route.GetLength()
+		#self.AddLength(route)
 	def Get(self):
 		return self.individual
 	def Getn(self,n):
@@ -23,6 +24,11 @@ class Individual:
 		for i in range(0,len(self.individual)):
 			print(self.individual[i].Get(),end="")
 		print()
+	def AddLength(self, route):
+		self.length += route.GetLength()
+	def ResetLength(self):
+		self.length = Geodesic_distance([0, 0],[0, 0])
+
 
 	def CreateIndividual(self,data,n):
 		#Routes =[]

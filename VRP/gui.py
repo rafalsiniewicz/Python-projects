@@ -15,7 +15,7 @@ class App(QWidget):
         self.program.ImportData()
         self.names = ["A", "B", "C", "D", "E", "F", "G", "H", "I"]
         self.program.SelectData(self.names)
-        self.program.InitializePopulation(1,100)
+        #self.program.InitializePopulation(3,100)
         #self.interface()
 
     def interface(self):
@@ -46,14 +46,19 @@ class App(QWidget):
         #print('clicked')
         self.program.SelectData(self.names)
         #self.program.ShowData()
-        self.program.InitializePopulation(1,100)
+        self.program.InitializePopulation(3,100)
         #self.program.ShowPopulation()
+        self.program.GetPopulation().AddStart(START,END)
+        self.program.GetPopulation().SortPopulation()
         self.program.ShowLengths()
+        self.program.GetPopulation().RemoveStart()
+        
         for i in range(0,1):
             self.program.PlayRound()
 
         self.program.ShowLengths()
         self.program.ShowBest()
+        print(self.program.GetPopulation().BestIndividual().GetLength())
 
 
     def checkBoxChangedAction(self, state):
