@@ -43,6 +43,8 @@ class Route:
 		return self.route
 	def GetSize(self):
 		return len(self.route)
+	def Show(self):
+		print(self.route)
 	def GetLength(self):
 		length = Geodesic_distance([0, 0],[0, 0])
 		#print(length)

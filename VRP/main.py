@@ -1,12 +1,11 @@
 from gui import *
 
-
 if __name__ == '__main__':
     import sys
 
     app = QApplication(sys.argv)
     window = App()
-    program = Program()
+    #program = Program()
     window.interface()
     '''program = Program()
     program.ImportData()

@@ -49,6 +49,7 @@ class Program:
 			ind=Individual()
 			ind.CreateIndividual(self.data,number_of_vehicles)
 			self.population.AddIndividual(ind)
+			#ind.Show()
 			#self.ShowPopulation()
 		self.population.SortPopulation()
 		#self.ShowPopulation()
