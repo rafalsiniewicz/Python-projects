@@ -16,17 +16,26 @@ from PySide2 import *
 import sys
 from PySide2.QtWidgets import QApplication, QLabel
 from PyQt5.QtWebEngineWidgets import QWebEngineView
+import numpy as np
+import pandas as pd
+from collections import namedtuple
 
 
 
 CRACOW_CENTRE = {"CRACOW": [50.061681, 19.938104]}
+
+def choose_color():
+    return "#{:06x}".format(randint(0, 0xFFFFFF))
 
 class App(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.program = Program()
         self.program.ImportData()
-        self.names = ["A", "B", "C", "D", "E", "F", "G", "H", "I"]
+        self.names = ["A", "B", "C", "D"]
+        #self.names = []
+        #for place,position in self.program.GetData().Get().items():
+        #    self.names.append(place)
         self.program.SelectData(self.names)
         #self.program.InitializePopulation(3,100)
         #self.interface()
@@ -59,14 +68,14 @@ class App(QWidget):
         #print(self.names)
         self.program.SelectData(self.names)
         #self.program.ShowData()
-        self.program.InitializePopulation(3,100)
+        self.program.InitializePopulation(1,100)
         #self.program.ShowPopulation()
         self.program.GetPopulation().AddStart(START,END)
         self.program.GetPopulation().SortPopulation()
         self.program.ShowLengths()
         self.program.GetPopulation().RemoveStart()
         
-        for i in range(0,1):
+        for i in range(0,5):
             self.program.PlayRound()
 
         self.program.ShowLengths()
@@ -83,7 +92,6 @@ class App(QWidget):
         else:
             self.names.remove(self.sender().text())
 
-
     def create_map(self, program):
         m = folium.Map(location=[CRACOW_CENTRE["CRACOW"][0], CRACOW_CENTRE["CRACOW"][1]],
             zoom_start=15, control_scale=True)
@@ -95,8 +103,16 @@ class App(QWidget):
                 popup=place,
                 icon=folium.Icon(color='green', icon='ok-sign'),
             ).add_to(m)
-            outfp = "map.html"
-            m.save(outfp)
+        for i in range(0,self.program.GetPopulation().BestIndividual().GetSize()):
+            points = []
+            for place, position in self.program.GetPopulation().BestIndividual().Getn(i).Get().items():
+                points.append(position)
+            folium.PolyLine(
+                points,
+                color=choose_color()
+                ).add_to(m)
+        outfp = "map.html"
+        m.save(outfp)
         #webview.create_window('Hello world', 'map.html')
 
         #app = QApplication(sys.argv)
