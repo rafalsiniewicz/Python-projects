@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-from PyQt5.QtWidgets import QApplication, QWidget, QCheckBox, QButtonGroup, QVBoxLayout, QPushButton
+from PyQt5.QtWidgets import QApplication, QWidget, QCheckBox, QButtonGroup, QVBoxLayout, QPushButton, QScrollArea, QGroupBox
 from PyQt5.QtCore import pyqtSlot, QUrl
 from PyQt5 import QtCore
 from functools import partial
@@ -39,8 +39,45 @@ class App(QWidget):
         self.program.SelectData(self.names)
         #self.program.InitializePopulation(3,100)
         #self.interface()
+        self.initUI()
 
-    def interface(self):
+
+    def createLayout_group(self, number):
+        sgroupbox = QGroupBox("Places".format(number), self)
+        layout_groupbox = QVBoxLayout(sgroupbox)
+        for i in range(len(self.names)):
+            item = QCheckBox(self.program.GetNames()[i], sgroupbox)
+            layout_groupbox.addWidget(item)
+            item.stateChanged.connect(self.checkBoxChangedAction)
+            item.toggle()
+        layout_groupbox.addStretch(1)
+        return sgroupbox
+
+    def createLayout_Container(self):
+        self.scrollarea = QScrollArea(self)
+        self.scrollarea.setFixedWidth(200)
+        self.scrollarea.setWidgetResizable(True)
+
+        widget = QWidget()
+        self.scrollarea.setWidget(widget)
+        self.layout_SArea = QVBoxLayout(widget)
+
+        for i in range(1):
+            self.layout_SArea.addWidget(self.createLayout_group(i))
+        self.layout_SArea.addStretch(1)
+
+    def initUI(self):
+        self.resize(640, 480)
+        button = QPushButton('Calculate track', self)
+        #button.setToolTip('This is an example button')
+        button.move(300,70)
+        button.clicked.connect(self.on_click)
+        self.createLayout_Container()
+        self.layout_All = QVBoxLayout(self)
+        self.layout_All.addWidget(self.scrollarea)
+        self.show()
+
+    '''def interface(self):
 
         self.resize(640, 480)
         #self.setWindowTitle("")
@@ -62,6 +99,7 @@ class App(QWidget):
         button.move(200,70)
         button.clicked.connect(self.on_click)
         self.show()
+        '''
 
     def on_click(self):
         #print('clicked')
@@ -75,7 +113,7 @@ class App(QWidget):
         self.program.ShowLengths()
         self.program.GetPopulation().RemoveStart()
         
-        for i in range(0,5):
+        for i in range(0,1):
             self.program.PlayRound()
 
         self.program.ShowLengths()
@@ -98,11 +136,18 @@ class App(QWidget):
 
 
         for place, position in self.program.GetPopulation().BestIndividual().Merge().items():
-            folium.Marker(
+            if place == "END":
+                folium.Marker(
                 location=[position[0], position[1]],
-                popup=place,
-                icon=folium.Icon(color='green', icon='ok-sign'),
+                popup="START/" + place,
+                icon=folium.Icon(color='red', icon='ok-sign'),
             ).add_to(m)
+            else:
+                folium.Marker(
+                    location=[position[0], position[1]],
+                    popup=place,
+                    icon=folium.Icon(color='green', icon='ok-sign'),
+                ).add_to(m)
         for i in range(0,self.program.GetPopulation().BestIndividual().GetSize()):
             points = []
             for place, position in self.program.GetPopulation().BestIndividual().Getn(i).Get().items():

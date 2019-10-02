@@ -6,7 +6,7 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = App()
     #program = Program()
-    window.interface()
+    #window.interface()
     '''program = Program()
     program.ImportData()
     program.InitializePopulation()
