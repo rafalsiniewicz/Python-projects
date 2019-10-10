@@ -30,8 +30,8 @@ def Haversine(origin, destination):
 
     return d
 
-START = {"START":[30, 84]}
-END = {"END":[30,	84]}
+START = {"START":[50.057767, 19.931321]}
+END = {"END":[50.057767, 19.931321]}
 	
 class Route:
 	def __init__(self):

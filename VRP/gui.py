@@ -19,6 +19,9 @@ from PyQt5.QtWebEngineWidgets import QWebEngineView
 import numpy as np
 import pandas as pd
 from collections import namedtuple
+from networkx import *
+from osmnx import *
+
 
 
 
@@ -31,11 +34,11 @@ class App(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.program = Program()
-        self.program.ImportData()
-        self.names = ["A", "B", "C", "D"]
-        #self.names = []
-        #for place,position in self.program.GetData().Get().items():
-        #    self.names.append(place)
+        self.program.ImportData("krakow.json")
+        #self.names = ["A", "B", "C", "D"]
+        self.names = []
+        for place,position in self.program.GetData().Get().items():
+            self.names.append(place)
         self.program.SelectData(self.names)
         #self.program.InitializePopulation(3,100)
         #self.interface()
@@ -45,6 +48,7 @@ class App(QWidget):
     def createLayout_group(self, number):
         sgroupbox = QGroupBox("Places".format(number), self)
         layout_groupbox = QVBoxLayout(sgroupbox)
+        #print(len(self.program.GetNames()))
         for i in range(len(self.names)):
             item = QCheckBox(self.program.GetNames()[i], sgroupbox)
             layout_groupbox.addWidget(item)
@@ -131,6 +135,20 @@ class App(QWidget):
             self.names.remove(self.sender().text())
 
     def create_map(self, program):
+
+        G = graph_from_place('Krakow, Poland', network_type='drive')
+        nodes = []  
+        nodes.append(get_nearest_node(G, START["START"]))
+        for place,position in self.program.GetData().Get().items():
+            nodes.append(get_nearest_node(G, position))
+
+        nodes.append(get_nearest_node(G, END["END"]))
+
+        routes = []
+        for i in range(0, len(nodes)-1):
+            routes.append(shortest_path(G, nodes[i], nodes[i+1], weight='length'))
+
+
         m = folium.Map(location=[CRACOW_CENTRE["CRACOW"][0], CRACOW_CENTRE["CRACOW"][1]],
             zoom_start=15, control_scale=True)
 
@@ -156,6 +174,10 @@ class App(QWidget):
                 points,
                 color=choose_color()
                 ).add_to(m)
+        #print(type(routes[0]))
+        print(routes)
+        for i in range(0,len(routes)):
+            plot_route_folium(G, routes[i], route_width=3, route_map= m, route_color=choose_color(), tiles='Stamen Terrain', popup_attribute='name')
         outfp = "map.html"
         m.save(outfp)
         #webview.create_window('Hello world', 'map.html')

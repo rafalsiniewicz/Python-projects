@@ -28,10 +28,11 @@ class Program:
 		names = []
 		for place, position in self.data.Get().items():
 			names.append(place)
+		print(names)
 		return names
 
 	def SelectData(self, list_of_places):
-		self.ImportData()
+		self.ImportData("krakow.json")
 		new_dict = self.data.Get().copy()
 		for place, position in new_dict.items():
 			stay = False
